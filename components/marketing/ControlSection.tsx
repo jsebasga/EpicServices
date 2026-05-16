@@ -1,28 +1,39 @@
-import Link from 'next/link';
+import { CreateRequestLink } from '@/components/shared/CreateRequestLink';
 
 export function ControlSection() {
   return (
-    <section className="section">
-      <div className="container grid-2" style={{ alignItems: 'start' }}>
-        <article className="card-soft feature-card">
-          <span className="badge">Cliente</span>
-          <h3>Solicitud + aprobación + pago</h3>
-          <p>El cliente ve cotizaciones, fechas estimadas, progreso, archivos y evidencias. La visual se plantea para que el pago se convierta en un paso natural del flujo, no en un proceso aparte.</p>
-          <ul style={{ color: 'var(--muted)', lineHeight: 1.8, paddingLeft: '1.25rem' }}>
-            <li>Formulario segmentado por categoría y urgencia</li>
-            <li>Timeline visible con hitos y comentarios</li>
-            <li>Resumen financiero antes y después del pago</li>
-          </ul>
-        </article>
-        <article className="card-soft feature-card">
-          <span className="badge">Operación</span>
-          <h3>Técnicos y administración con foco en productividad</h3>
-          <p>El técnico necesita una agenda útil, estados accionables y un panel claro de ingresos. La administración necesita métricas, asignación y control de liberación de fondos.</p>
-          <div style={{ display: 'flex', gap: '.75rem', flexWrap: 'wrap', marginTop: '1rem' }}>
-            <Link href="/dashboard/tecnico" className="btn btn-secondary">Ver portal técnico</Link>
-            <Link href="/dashboard/admin" className="btn btn-primary">Ver portal admin</Link>
+    <section className="container section">
+      <div className="card-soft" style={{ padding: '2rem' }}>
+        <span className="badge">Gestión de servicios</span>
+
+        <h2 className="section-title">
+          Empieza creando tu primera solicitud técnica
+        </h2>
+
+        <p className="section-description">
+          Describe el problema, indica la prioridad y permite que el equipo revise tu caso para darle seguimiento de forma organizada.
+        </p>
+
+        <div className="quick-flow">
+          <div className="quick-flow-item">
+            <strong>Describe tu necesidad</strong>
+            <span>Registra el tipo de servicio, la prioridad y los detalles principales del caso.</span>
           </div>
-        </article>
+
+          <div className="quick-flow-item">
+            <strong>Haz seguimiento</strong>
+            <span>Consulta el avance de la solicitud y revisa los cambios de estado del ticket.</span>
+          </div>
+
+          <div className="quick-flow-item">
+            <strong>Centraliza la información</strong>
+            <span>Conserva comentarios, archivos y actualizaciones dentro de una misma solicitud.</span>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '.85rem', flexWrap: 'wrap', marginTop: '1.4rem' }}>
+          <CreateRequestLink />
+        </div>
       </div>
     </section>
   );

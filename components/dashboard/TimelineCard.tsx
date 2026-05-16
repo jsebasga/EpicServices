@@ -1,15 +1,16 @@
 const steps = [
-  { title: 'Solicitud creada', text: 'Cliente adjunta descripción, prioridad y archivos.' },
-  { title: 'Cotización aprobada', text: 'La plataforma muestra subtotal, comisión y total a pagar.' },
-  { title: 'Pago confirmado', text: 'Se habilita asignación técnica y reserva del servicio.' },
-  { title: 'Trabajo en progreso', text: 'El técnico sube evidencias y actualiza estatus.' },
-  { title: 'Cierre y calificación', text: 'Se valida entrega y se prepara liberación del pago.' }
+  { title: 'Solicitud registrada', text: 'El cliente describe la necesidad, define prioridad y agrega información de apoyo.' },
+  { title: 'Revisión del caso', text: 'El equipo analiza la información para clasificar la solicitud y definir el siguiente paso.' },
+  { title: 'Asignación de responsable', text: 'Se asigna un técnico según disponibilidad, tipo de servicio y nivel de prioridad.' },
+  { title: 'Atención en curso', text: 'El técnico registra avances, comentarios y evidencias durante la atención del caso.' },
+  { title: 'Validación del resultado', text: 'El cliente revisa la solución o puede solicitar ajustes antes del cierre.' },
+  { title: 'Solicitud cerrada', text: 'El caso queda finalizado con historial, comentarios y trazabilidad completa.' }
 ];
 
 export function TimelineCard() {
   return (
     <section className="card" style={{ padding: '1.35rem' }}>
-      <strong style={{ fontSize: '1.05rem' }}>Flujo visual del servicio</strong>
+      <strong style={{ fontSize: '1.05rem' }}>Cómo avanza una solicitud</strong>
       <div style={{ display: 'grid', gap: '1rem', marginTop: '1rem' }}>
         {steps.map((step, index) => (
           <div key={step.title} style={{ display: 'grid', gridTemplateColumns: '40px 1fr', gap: '.8rem', alignItems: 'start' }}>

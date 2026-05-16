@@ -1,56 +1,120 @@
-import Link from 'next/link';
-import { Headset, LayoutDashboard, ListChecks, Settings, Wallet } from 'lucide-react';
+'use client';
 
-const nav = [
-  { href: '/dashboard/cliente', label: 'Cliente' },
-  { href: '/dashboard/tecnico', label: 'Técnico' },
-  { href: '/dashboard/admin', label: 'Admin' },
-  { href: '/solicitudes/nueva', label: 'Nueva solicitud' }
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { KeyRound, LogOut } from 'lucide-react';
+import { useAuth } from '@/components/auth/AuthProvider';
+import { getDashboardPathByRole } from '@/lib/auth/roleRedirect';
+import { logout } from '@/services/authService';
+import { ThemeToggle } from '@/components/shared/ThemeToggle';
+
+type DashboardLayoutProps = {
+  title: string;
+  subtitle: string;
+  currentPath: string;
+  children: React.ReactNode;
+  action?: React.ReactNode;
+};
+
+const publicNav = [
+  { href: '/', label: 'Inicio' },
+  { href: '/servicios', label: 'Servicios' },
+  { href: '/contacto', label: 'Contacto' }
 ];
 
-export function DashboardLayout({ title, subtitle, currentPath, children, action }: { title: string; subtitle: string; currentPath: string; children: React.ReactNode; action?: React.ReactNode; }) {
+const roleNav = {
+  client: { href: '/dashboard/cliente', label: 'Mi portal' },
+  technician: { href: '/dashboard/tecnico', label: 'Atención técnica' },
+  admin: { href: '/dashboard/admin', label: 'Administración' }
+};
+
+export function DashboardLayout({
+  title,
+  subtitle,
+  currentPath,
+  children,
+  action
+}: DashboardLayoutProps) {
+  const router = useRouter();
+  const { profile } = useAuth();
+  const firstName = profile?.name?.split(' ')[0] ?? 'Usuario';
+
+  const dashboardItem = profile ? roleNav[profile.role] : null;
+  const nav = dashboardItem ? [...publicNav, dashboardItem] : publicNav;
+
+  async function handleLogout() {
+    try {
+      await logout();
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Error closing session:', error);
+    }
+  }
+
   return (
     <div className="dashboard-shell">
       <aside className="sidebar">
         <Link href="/" className="brand">
-          <span className="brand-mark"><Headset size={22} /></span>
+          <span className="brand-mark brand-logo-wrapper">
+            <img
+              src="/images/logo-icon.png"
+              alt="Epic Services"
+              className="brand-logo-img"
+            />
+          </span>
           <span>Epic Services</span>
         </Link>
+
         <nav>
           {nav.map((item) => (
-            <Link key={item.href} href={item.href} className={currentPath === item.href ? 'active' : ''}>{item.label}</Link>
+            <Link
+              key={item.href}
+              href={item.href}
+              className={currentPath === item.href ? 'active' : ''}
+            >
+              {item.label}
+            </Link>
           ))}
         </nav>
-        <div className="card" style={{ padding: '1rem', marginTop: '1.5rem' }}>
-          <div style={{ display: 'grid', gap: '.85rem' }}>
-            <div style={{ display: 'flex', gap: '.8rem', alignItems: 'center' }}>
-              <div className="service-icon" style={{ width: 46, height: 46 }}><LayoutDashboard size={20} /></div>
-              <div><strong>Frontend visual</strong><p style={{ margin: '.2rem 0 0', color: 'var(--muted)' }}>Listo para conectar con Firebase</p></div>
-            </div>
-            <div style={{ display: 'flex', gap: '.8rem', alignItems: 'center' }}>
-              <div className="service-icon" style={{ width: 46, height: 46 }}><Wallet size={20} /></div>
-              <div><strong>Pagos</strong><p style={{ margin: '.2rem 0 0', color: 'var(--muted)' }}>Vista preparada para marketplace</p></div>
-            </div>
-            <div style={{ display: 'flex', gap: '.8rem', alignItems: 'center' }}>
-              <div className="service-icon" style={{ width: 46, height: 46 }}><ListChecks size={20} /></div>
-              <div><strong>Tickets</strong><p style={{ margin: '.2rem 0 0', color: 'var(--muted)' }}>Flujo de estados bien visible</p></div>
-            </div>
-            <div style={{ display: 'flex', gap: '.8rem', alignItems: 'center' }}>
-              <div className="service-icon" style={{ width: 46, height: 46 }}><Settings size={20} /></div>
-              <div><strong>Escalable</strong><p style={{ margin: '.2rem 0 0', color: 'var(--muted)' }}>Base limpia para backend</p></div>
-            </div>
+
+        <div className="sidebar-footer">
+          <div className="sidebar-theme-row">
+              <span>Hola, {firstName}</span>
           </div>
+          <div className="sidebar-theme-row">
+            <span>Apariencia</span>
+            <ThemeToggle />
+          </div>
+          <Link href="/dashboard/cambiar-contrasena" className="btn btn-secondary sidebar-account-action">
+            <KeyRound size={18} />
+            Cambiar contraseña
+          </Link>
+
+          <button
+            type="button"
+            className="btn sidebar-logout"
+            onClick={handleLogout}
+          >
+            <LogOut size={18} />
+            Cerrar sesión
+          </button>
         </div>
       </aside>
+
       <main className="dashboard-main">
         <div className="page-heading">
           <div>
-            <span className="badge">Demo visual del portal</span>
-            <h1 style={{ margin: '.9rem 0 .55rem', fontSize: 'clamp(2rem, 3vw, 3rem)' }}>{title}</h1>
-            <p style={{ color: 'var(--muted)', margin: 0 }}>{subtitle}</p>
+            <h1 style={{ margin: '0 0 .55rem', fontSize: 'clamp(2rem, 3vw, 3rem)' }}>
+              {title}
+            </h1>
+            <p style={{ color: 'var(--muted)', margin: 0 }}>
+              {subtitle}
+            </p>
           </div>
+
           {action}
         </div>
+
         {children}
       </main>
     </div>

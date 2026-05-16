@@ -1,38 +1,66 @@
-# Epic Services Help Desk · Frontend Next.js
+# Epic Services
 
-Frontend base migrado desde la idea visual original hacia una versión más sólida en **Next.js App Router**.
+Epic Services es una plataforma web para la gestión de solicitudes técnicas y mesa de ayuda. Permite a clientes crear solicitudes, a técnicos gestionar casos asignados y a administradores supervisar la operación completa.
 
-## Incluye
-
-- Landing pública con estilo verde/amarillo similar al diseño original.
-- Páginas públicas: inicio, servicios y contacto.
-- Pantallas de acceso: login y registro.
-- Dashboards visuales para cliente, técnico y administrador.
-- Formulario visual de nueva solicitud.
-- Datos mock para dejar listo el paso posterior hacia Firebase.
-
-## Stack
+## Tecnologías principales
 
 - Next.js
+- React
 - TypeScript
-- CSS global custom
-- lucide-react
+- Firebase Authentication
+- Cloud Firestore
+- CSS global personalizado
+- Vercel para despliegue
 
-## Cómo ejecutar
+## Funcionalidades del MVP
 
-```bash
-npm install
-npm run dev
-```
+### Autenticación
 
-## Rutas principales
+- Registro de usuarios cliente y técnico.
+- Administradores creados manualmente desde Firebase.
+- Inicio de sesión con correo y contraseña.
+- Inicio de sesión con Google.
+- Recuperación de contraseña.
+- Cambio de contraseña.
+- Protección de rutas por rol.
 
-- `/`
-- `/servicios`
-- `/contacto`
-- `/login`
-- `/registro`
-- `/dashboard/cliente`
-- `/dashboard/tecnico`
-- `/dashboard/admin`
-- `/solicitudes/nueva`
+### Roles
+
+#### Cliente
+
+- Crear solicitudes técnicas.
+- Ver únicamente sus propias solicitudes.
+- Consultar detalle, historial y comentarios.
+- Comentar solicitudes.
+- Calificar solicitudes finalizadas.
+
+#### Técnico
+
+- Ver solicitudes nuevas disponibles.
+- Tomar solicitudes.
+- Ver solicitudes asignadas.
+- Agregar comentarios.
+- Cambiar estado y finalizar casos.
+
+#### Administrador
+
+- Ver todas las solicitudes.
+- Asignar técnicos.
+- Consultar métricas generales.
+- Ver usuarios técnicos disponibles.
+- Gestionar estados y seguimiento de casos.
+
+## Backend con Firebase
+
+El backend del MVP está implementado con Firebase:
+
+- Firebase Authentication para usuarios y sesiones.
+- Cloud Firestore para perfiles, tickets, comentarios, historial y calificaciones.
+
+### Colecciones principales
+
+```txt
+users
+tickets
+tickets/{ticketId}/comments
+tickets/{ticketId}/history
