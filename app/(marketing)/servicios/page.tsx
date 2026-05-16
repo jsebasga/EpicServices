@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { CreateRequestLink } from '@/components/shared/CreateRequestLink';
 import { ServicesGrid } from '@/components/marketing/ServicesGrid';
 import { Footer } from '@/components/shared/Footer';
 import { Header } from '@/components/shared/Header';
@@ -8,13 +8,36 @@ export default function ServicesPage() {
     <>
       <Header />
       <section className="section">
-        <div className="container card-soft" style={{ padding: '2rem' }}>
-          <span className="badge">Servicios tecnológicos</span>
-          <h1 className="section-title">Un catálogo preparado para convertirse en tickets y pagos</h1>
-          <p className="section-subtitle">En esta versión el frontend ya separa la presentación pública de la operación real del servicio. Eso facilita después la conexión con Firebase, reglas por rol y pasarela de pagos.</p>
+      <div className="container card-soft" style={{ padding: '2rem' }}>
+      <span className="badge">Servicios técnicos</span>
+
+      <h1 className="section-title">
+        Soluciones técnicas para mantener tu operación funcionando
+      </h1>
+
+      <p className="section-subtitle">
+        Encuentra el tipo de soporte que necesitas, crea una solicitud clara y permite que el equipo gestione tu caso con seguimiento organizado.
+      </p>
+      
+      <div className="service-highlights">
+        <div className="service-highlight-item">
+          <strong>Elige el servicio adecuado</strong>
+          <span>Selecciona la categoría que mejor describe tu necesidad técnica.</span>
+        </div>
+
+        <div className="service-highlight-item">
+          <strong>Describe tu caso con claridad</strong>
+          <span>Agrega prioridad, canal de atención, ciudad, horario y detalles del problema.</span>
+        </div>
+
+        <div className="service-highlight-item">
+          <strong>Haz seguimiento del avance</strong>
+          <span>Consulta el estado de tu solicitud y revisa las actualizaciones del equipo.</span>
+        </div>
+      </div>
+      
           <div style={{ display: 'flex', gap: '.75rem', marginTop: '1.25rem', flexWrap: 'wrap' }}>
-            <Link href="/solicitudes/nueva" className="btn btn-primary">Solicitar ahora</Link>
-            <Link href="/dashboard/cliente" className="btn btn-secondary">Ver flujo del cliente</Link>
+            <CreateRequestLink />
           </div>
         </div>
       </section>

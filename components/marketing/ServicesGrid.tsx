@@ -4,9 +4,11 @@ export function ServicesGrid() {
   return (
     <section className="section" id="servicios">
       <div className="container">
-        <span className="badge">Catálogo de servicios</span>
-        <h2 className="section-title">Servicios listos para una experiencia de soporte moderna</h2>
-        <p className="section-subtitle">Esta propuesta conserva el estilo verde/amarillo del sitio original, pero lo lleva a una plataforma más robusta: con foco en solicitud, operación y pagos.</p>
+      <span className="badge">Catálogo de servicios</span>
+        <h2 className="section-title">Servicios pensados para resolver tus necesidades técnicas</h2>
+        <p className="section-subtitle">
+          Encuentra opciones de soporte, mantenimiento, configuración y conectividad para crear solicitudes claras y dar seguimiento a cada caso desde la plataforma.
+        </p>
         <div className="grid-3" style={{ marginTop: '1.8rem' }}>
           {services.map((service) => {
             const Icon = service.icon;
